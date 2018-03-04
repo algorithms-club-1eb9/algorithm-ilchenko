@@ -1,0 +1,8 @@
+{
+  "name": "algorithms",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:algorithms-club-1eb9/algorithm-ilchenko.git",
+  "author": "vadimilchenko <v.ilchenko@8ways.ch>",
+  "license": "MIT"
+}
