@@ -4,5 +4,19 @@
   "main": "index.js",
   "repository": "git@github.com:algorithms-club-1eb9/algorithm-ilchenko.git",
   "author": "vadimilchenko <v.ilchenko@8ways.ch>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "eslint-fix": "node ./node_modules/eslint/bin/eslint.js lib --fix",
+    "test": "node ./node_modules/eslint/bin/eslint.js lib && node ./node_modules/mocha/bin/mocha --recursive lib"
+  },
+  "dependencies": {
+    "lodash": "^4.17.5",
+    "mocha": "^5.0.1",
+    "should": "^13.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0"
+  }
 }

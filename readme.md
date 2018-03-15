@@ -1,1 +1,1 @@
-Algorithms club. Start
+Algorithms club. Finished binary search & linked-list & connectivity problem

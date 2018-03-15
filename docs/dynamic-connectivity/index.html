@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<button id="connect">Connect!</button>
+<button id="is-connected">Is Connected?</button>
+
+
+<script type="module">
+	let canvas = document.createElement('canvas');
+	let ctx = canvas.getContext('2d');
+	let items = Number(prompt('Please enter number of items!'));
+	let list = [];
+	let size = {
+		width: window.innerWidth * .9,
+		height: window.innerHeight * .9
+	};
+	let connectBtn = document.querySelector('#connect');
+	let isConnectedBtn = document.querySelector('#is-connected');
+	let message = `Enter two number with a space to Connect! Numbers must be greater than 0 and smaller or equal to ${items}`;
+
+	connectBtn.addEventListener('click', connectBtnClick);
+	isConnectedBtn.addEventListener('click', isConnectedBtnClick);
+	canvas.width = size.width;
+	canvas.height = size.height;
+	document.body.appendChild(canvas);
+
+	ctx.fillStyle = '#000000';
+	ctx.strokeStyle = '#000000';
+
+	for (let i = 0; i < items; i++) {
+		let x = Math.floor(Math.random() * size.width)
+		let y = Math.floor(Math.random() * size.height)
+		ctx.moveTo(x, y);
+		ctx.beginPath();
+		ctx.arc(x, y, 15, 0, 2 * Math.PI);
+		ctx.stroke();
+		ctx.closePath();
+		ctx.font = "15px Arial";
+		ctx.fillText(`${i}`, x - 5, y + 5);
+		list.push({
+			root: i,
+			x: x,
+			y: y
+		})
+	}
+
+	function connectBtnClick() {
+		const numbers = prompt(message).split(' ');
+		if (checkNumbers(numbers)) {
+			connect(numbers[ 0 ], numbers[ 1 ]);
+		} else {
+			alert('Error')
+		}
+	}
+
+	function isConnectedBtnClick() {
+		const numbers = prompt(message).split(' ');
+		if (checkNumbers(numbers)) {
+			isConnected(numbers[ 0 ], numbers[ 1 ]);
+		}
+	}
+
+	function checkNumbers(numbers) {
+		return numbers.length === 2
+			&& !isNaN(numbers[ 0 ]) && !isNaN(numbers[ 1 ])
+			&& numbers[ 0 ] >= 0 && numbers[ 0 ] < items
+			&& numbers[ 1 ] >= 0 && numbers[ 1 ] < items
+	}
+
+	function getUnqueItem(count, notEqual) {
+		const _result = Math.floor(Math.random() * count);
+		return _result === notEqual ? getUnqueItem(count, notEqual) : _result;
+	}
+
+	function findRoot(n) {
+		while (n !== list[ n ].root) {
+			n = list[ n ].root;
+		}
+		return n;
+	}
+
+	function connect(a, b) {
+		let _a = findRoot(a);
+		let _b = findRoot(b);
+
+		if (_a === _b) return; // already connected
+
+		for (let i = 0; i < list.length; i++) {
+			if (list[ i ].root == _a)
+				list[ i ].root = _b;
+		}
+
+
+		ctx.beginPath();
+		ctx.moveTo(list[ a ].x, list[ a ].y);
+
+		ctx.lineTo(list[ b ].x, list[ b ].y);
+		ctx.closePath();
+		ctx.stroke();
+	}
+
+	function isConnected(a, b) {
+		alert(`Is Connected ${a} and ${b}? ${list[ a ].root == list[ b ].root}`)
+	}
+
+</script>
+</body>
+</html>
