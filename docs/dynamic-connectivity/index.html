@@ -16,15 +16,16 @@
 <script type="module">
 	let canvas = document.createElement('canvas');
 	let ctx = canvas.getContext('2d');
-	let items = Number(prompt('Please enter number of items!'));
+	let items = Number(prompt('Please enter count of items!'));
 	let list = [];
 	let size = {
 		width: window.innerWidth * .9,
-		height: window.innerHeight * .9
+		height: window.innerHeight * .9,
+        radius: 15
 	};
 	let connectBtn = document.querySelector('#connect');
 	let isConnectedBtn = document.querySelector('#is-connected');
-	let message = `Enter two number with a space to Connect! Numbers must be greater than 0 and smaller or equal to ${items}`;
+	let message = `Enter two number with a space to Connect! Numbers must be greater than 0 and smaller than ${items}`;
 
 	connectBtn.addEventListener('click', connectBtnClick);
 	isConnectedBtn.addEventListener('click', isConnectedBtnClick);
@@ -36,21 +37,27 @@
 	ctx.strokeStyle = '#000000';
 
 	for (let i = 0; i < items; i++) {
-		let x = Math.floor(Math.random() * size.width)
-		let y = Math.floor(Math.random() * size.height)
+		let x = Math.floor(Math.random() * size.width);
+		let y = Math.floor(Math.random() * size.height);
+		x = normalize(x, size.width);
+		y = normalize(y, size.height);
 		ctx.moveTo(x, y);
 		ctx.beginPath();
-		ctx.arc(x, y, 15, 0, 2 * Math.PI);
+		ctx.arc(x, y, size.radius, 0, 2 * Math.PI);
 		ctx.stroke();
 		ctx.closePath();
 		ctx.font = "15px Arial";
 		ctx.fillText(`${i}`, x - 5, y + 5);
 		list.push({
 			root: i,
+            size: 1,
 			x: x,
 			y: y
 		})
 	}
+    function normalize(n, check) {
+		return n <= size.radius ? size.radius + 1 : n > check - size.radius ? check - size.radius - 1 : n;
+    }
 
 	function connectBtnClick() {
 		const numbers = prompt(message).split(' ');
@@ -93,16 +100,18 @@
 
 		if (_a === _b) return; // already connected
 
-		for (let i = 0; i < list.length; i++) {
-			if (list[ i ].root == _a)
-				list[ i ].root = _b;
-		}
-
+        if (list[_a].size < list[_b].size) {
+            list[_a].root = _b;
+            list[_b].size += list[_a].size;
+        } else {
+            list[_b].root = _a;
+            list[_a].size += list[_b].size;
+        }
 
 		ctx.beginPath();
-		ctx.moveTo(list[ a ].x, list[ a ].y);
+		ctx.moveTo(list[ _a ].x, list[ _a ].y);
 
-		ctx.lineTo(list[ b ].x, list[ b ].y);
+		ctx.lineTo(list[ _b ].x, list[ _b ].y);
 		ctx.closePath();
 		ctx.stroke();
 	}
