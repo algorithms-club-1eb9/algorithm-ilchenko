@@ -8,25 +8,28 @@
     <title>Document</title>
 </head>
 <body>
+<button>Calc!</button>
+<ul>
 
+</ul>
 <script>
 	let message = {
 		error() {alert('Error, check console to see calculation process!')},
-		success(n, callback) {
-			confirm(`Answer is ${n}, check console to see calculation process. Do you wat to try again?`) ? callback() : alert('Good Bye!')
+		success(n) {
+            let list = document.querySelectorAll('ul li');
+            list[list.length - 1].innerHTML += ` = ${n}`;
+			alert(`Answer is ${n}, check console to see calculation process`);
 		}
 	}
 
 	class Calculator {
 		constructor() {
-			this.queue = [],
-				this.stack = [],
-				this.priority = {
-					'*': 14,
-					'/': 14,
-					'-': 13,
-					'+': 13
-				};
+			this.priority = {
+				'*': 14,
+				'/': 14,
+				'-': 13,
+				'+': 13
+			};
 			this.buffer = [];
 		}
 
@@ -74,32 +77,39 @@
 
 		parse(str) {
 			let tokens = this.tokenize(str);
+			let queue = [];
+			let stack = [];
 			if (!tokens) return;
+			let li = document.createElement('li');
+			let ul = document.querySelector('ul');
+			li.innerHTML = str;
+			ul.appendChild(li);
+
 			tokens.forEach(token => {
 				if (this.isDigit(token)) {
-					this.queue.push(token);
+					queue.push(token);
 				} else if (this.isOperator(token)) {
-					let last = this.getLast(this.stack);
+					let last = this.getLast(stack);
 					while (last && (this.isOperator(last)) && (this.priority[ token ] <= this.priority[ last ])) {
-						this.queue.push(this.stack.pop());
-						last = this.getLast(this.stack);
+						queue.push(stack.pop());
+						last = this.getLast(stack);
 					}
-					this.stack.push(token);
+					stack.push(token);
 				} else if (this.isLeftParenthesis(token)) {
-					this.stack.push(token);
+					stack.push(token);
 				} else if (this.isRightParenthesis(token)) {
-					let last = this.getLast(this.stack);
+					let last = this.getLast(stack);
 					while (last && !this.isLeftParenthesis(last)) {
-						this.queue.push(this.stack.pop());
-						last = this.getLast(this.stack);
+						queue.push(stack.pop());
+						last = this.getLast(stack);
 					}
 
-					this.stack.pop();
+					stack.pop();
 
 				}
 
 			})
-			return this.queue.concat(this.stack.reverse());
+			return queue.concat(stack.reverse());
 		}
 
 		clearBuffer(arr) {
@@ -154,7 +164,10 @@
 	}
 
 	const calculator = new Calculator();
-	calculator.calculate(prompt('Enter your expression, e.g. 2 + 2 * (2 + 3)'));
+	document.querySelector('button').addEventListener('click', () => {
+		calculator.calculate(prompt('Enter your expression, e.g. 2 + 2 * (2 + 3)'));
+	})
+
 
 </script>
 </body>
