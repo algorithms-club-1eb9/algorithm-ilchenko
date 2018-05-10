@@ -5,6 +5,7 @@ const BracketsValidator = require('./lib/brackets-validator');
 const Calculator = require('./lib/calculator');
 const DynamicConnectivity = require('./lib/dynamic-connectivity');
 const Sort = require('./lib/sort');
+const Graph = require('./lib/graph');
 
 module.exports = {
 	binarySearch,
@@ -13,5 +14,6 @@ module.exports = {
 	BracketsValidator,
 	Calculator,
 	DynamicConnectivity,
-	Sort
+	Sort,
+	Graph
 };
