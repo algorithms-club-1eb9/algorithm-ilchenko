@@ -6,6 +6,8 @@ const Calculator = require('./lib/calculator');
 const DynamicConnectivity = require('./lib/dynamic-connectivity');
 const Sort = require('./lib/sort');
 const Graph = require('./lib/graph');
+const BFS = require('./lib/bfs');
+const DFS = require('./lib/dfs');
 
 module.exports = {
 	binarySearch,
@@ -15,5 +17,7 @@ module.exports = {
 	Calculator,
 	DynamicConnectivity,
 	Sort,
-	Graph
+	Graph,
+	BFS,
+	DFS
 };
