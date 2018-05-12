@@ -9,6 +9,7 @@ const Graph = require('./lib/graph');
 const BFS = require('./lib/bfs');
 const DFS = require('./lib/dfs');
 const TPSP = require('./lib/tp-sp');
+const Dijkstra = require('./lib/dijkstra');
 
 module.exports = {
 	binarySearch,
@@ -21,5 +22,6 @@ module.exports = {
 	Graph,
 	BFS,
 	DFS,
-	TPSP
+	TPSP,
+	Dijkstra
 };
