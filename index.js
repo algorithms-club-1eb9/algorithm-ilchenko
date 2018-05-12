@@ -8,6 +8,7 @@ const Sort = require('./lib/sort');
 const Graph = require('./lib/graph');
 const BFS = require('./lib/bfs');
 const DFS = require('./lib/dfs');
+const TPSP = require('./lib/tp-sp');
 
 module.exports = {
 	binarySearch,
@@ -19,5 +20,6 @@ module.exports = {
 	Sort,
 	Graph,
 	BFS,
-	DFS
+	DFS,
+	TPSP
 };
