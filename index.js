@@ -1,4 +1,5 @@
 const binarySearch = require('./lib/binary-search');
+const RBTree = require('./lib/red-black-tree');
 const BinaryHeap = require('./lib/binary-heap');
 const LinkedList = require('./lib/linked-list');
 const BracketsValidator = require('./lib/brackets-validator');
@@ -14,6 +15,7 @@ const CPM = require('./lib/cpm');
 
 module.exports = {
 	binarySearch,
+	RBTree,
 	BinaryHeap,
 	LinkedList,
 	BracketsValidator,
