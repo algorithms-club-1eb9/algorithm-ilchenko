@@ -1,4 +1,5 @@
 const binarySearch = require('./lib/binary-search');
+const BinaryTree = require('./lib/binary-tree');
 const RBTree = require('./lib/red-black-tree');
 const BinaryHeap = require('./lib/binary-heap');
 const LinkedList = require('./lib/linked-list');
@@ -15,6 +16,7 @@ const CPM = require('./lib/cpm');
 
 module.exports = {
 	binarySearch,
+	BinaryTree,
 	RBTree,
 	BinaryHeap,
 	LinkedList,
